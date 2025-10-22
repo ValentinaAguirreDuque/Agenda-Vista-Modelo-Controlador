@@ -95,4 +95,28 @@ public class CControl {
             return null;
         }
     }
+    
+    public ArrayList<CContacto> BuscarPorID(String id) {
+        ArrayList<CContacto> lista = new ArrayList<>();
+        conecta = con.conectar();
+        if (conecta != null) {
+            lista = consulta.BuscarPorID(conecta, id);
+            con.desconectar(conecta);
+            return lista;
+        } else {
+            return null;
+        }
+    }
+    
+    public ArrayList<CContacto> ListarDireccionCalle(String direccion) {
+        ArrayList<CContacto> lista = new ArrayList<>();
+        conecta = con.conectar();
+        if (conecta != null) {
+            lista = consulta.ListarDireccionCalle(conecta, direccion);
+            con.desconectar(conecta);
+            return lista;
+        } else {
+            return null;
+        }
+    }
 }

@@ -645,67 +645,38 @@ public class interfazAgendaMVC extends javax.swing.JFrame {
     }//GEN-LAST:event_idActionPerformed
 
     private void B_BuscarPorIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_BuscarPorIDActionPerformed
-        Connection con = conectar();
+        ArrayList<CContacto> lista = new ArrayList<>();
+        lista = c.BuscarPorID(id.getText());
+
         modelo.setRowCount(0);
 
-        if (con != null) {
-            if (!id.getText().isEmpty()) {
-                if (id.getText().isEmpty()) {
-                    salida.setText("El campo -ID- está vacío. Llene los campos");
-                } else {
-                    String query = "SELECT * FROM datos WHERE id LIKE '" + id.getText() + "' ;";
-
-                    try {
-                        //preparo la consulta
-                        PreparedStatement preparar = con.prepareStatement(query);
-                        //ejecuto la consulta luego de prepararla, como es un select devuelve una lista de tipo ResultSet
-                        ResultSet resultado = preparar.executeQuery();
-                        //hago un ciclo para recorrer la lista y ponerla en la tabla de la interfaz
-                        boolean ide = false;
-                        while (resultado.next()) {
-                            modelo.addRow(new Object[]{resultado.getInt("id"), resultado.getString("nombres"), resultado.getString("apellidos"), resultado.getString("telefono"), resultado.getString("direccion"), resultado.getString("email")});
-                            ide = true;
-                        }
-                        if (ide) {
-                            salida.setText("ID: " + id.getText() + " encontrado."); // si lo de arriba se hizo, devuelve la salida correcta
-                        } else {
-                            salida.setText("No se encuentran ese ID. ");
-                        }
-
-                    } catch (SQLException ex) {
-                        salida.setText("Error en el sql");
-                    }
-                }
-            } else {
-                salida.setText("No se ha ingresado un ID para buscar en los contactos. ");
-            }
+        if (id.getText().isEmpty()) {
+            salida.setText("El campo -ID- está vacío. Llene los campos");
         } else {
-            salida.setText("No se pudo conectar con el servidor. ");
+            boolean ide = false;
+            for (CContacto con : lista) {
+                modelo.addRow(new Object[]{con.getId(), con.getNombres(), con.getApellidos(), con.getTelefono(), con.getDireccion(), con.getEmail()});
+                ide = true;
+            }
+            if (ide) {
+                salida.setText("ID: " + id.getText() + " encontrado."); // si lo de arriba se hizo, devuelve la salida correcta
+            } else {
+                salida.setText("No se encuentran ese ID. ");
+            }
         }
     }//GEN-LAST:event_B_BuscarPorIDActionPerformed
 
     private void B_ListarDireccionCalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_ListarDireccionCalleActionPerformed
-        Connection con = conectar();
+        ArrayList<CContacto> lista = new ArrayList<>();
+        lista = c.ListarDireccionCalle(direccion.getText());
+
         modelo.setRowCount(0);
 
-        if (con != null) {
-
-            String query = "SELECT * FROM datos WHERE direccion LIKE 'Cl%' OR direccion LIKE 'Calle%' ;";
-
-            try {
-                //preparo la consulta
-                PreparedStatement preparar = con.prepareStatement(query);
-                //ejecuto la consulta luego de prepararla, como es un select devuelve una lista de tipo ResultSet
-                ResultSet resultado = preparar.executeQuery();
-                //hago un ciclo para recorrer la lista y ponerla en la tabla de la interfaz
-                while (resultado.next()) {
-                    modelo.addRow(new Object[]{resultado.getInt("id"), resultado.getString("nombres"), resultado.getString("apellidos"), resultado.getString("telefono"), resultado.getString("direccion"), resultado.getString("email")});
-                }
-                salida.setText("Listado por calle. "); // si lo de arriba se hizo, devuelve la salida correcta
-            } catch (SQLException ex) {
-                salida.setText("Error en el sql");
-            }
+        for (CContacto con : lista) {
+            modelo.addRow(new Object[]{con.getId(), con.getNombres(), con.getApellidos(), con.getTelefono(), con.getDireccion(), con.getEmail()});
+            salida.setText("Listado por calle"); // si lo de arriba se hizo, devuelve la salida correcta
         }
+
     }//GEN-LAST:event_B_ListarDireccionCalleActionPerformed
 
     private void B_ListarDireccionCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_ListarDireccionCarreraActionPerformed
