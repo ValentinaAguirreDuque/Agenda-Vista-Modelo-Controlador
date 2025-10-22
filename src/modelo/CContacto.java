@@ -46,8 +46,5 @@ public class CContacto {
     public String getEmail() {
         return email;
     }
-    
-    
-    
-    
+
 }

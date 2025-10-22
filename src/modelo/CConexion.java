@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 
 public class CConexion {
    String usuario="root";
-   String contrasena="root";
+   String contrasena="";
    String url="jdbc:mysql://localhost:3306/agenda";
    
    public CConexion(){

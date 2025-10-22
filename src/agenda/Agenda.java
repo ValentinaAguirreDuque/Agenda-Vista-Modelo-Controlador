@@ -1,13 +1,14 @@
 
 package agenda;
 
-import vista.interfaz;
+import vista.interfazAgendaMVC;
+import vista.interfazAgendaMVC;
 
 
 public class Agenda {
 
     public static void main(String[] args) {
-        interfaz inter=new interfaz();
+        interfazAgendaMVC inter=new interfazAgendaMVC();
         inter.setVisible(true);
     }
     
