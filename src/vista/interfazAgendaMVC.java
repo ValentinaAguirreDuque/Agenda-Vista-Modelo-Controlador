@@ -14,9 +14,9 @@ public class interfazAgendaMVC extends javax.swing.JFrame {
 
     // Modelo para manipular la tabla
     DefaultTableModel modelo;
-    
+
     CControl c = new CControl();
-    
+
     public interfazAgendaMVC() {
         initComponents();
 
@@ -491,28 +491,28 @@ public class interfazAgendaMVC extends javax.swing.JFrame {
     }//GEN-LAST:event_emailActionPerformed
 
     private void B_AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_AgregarActionPerformed
-        
-        
 
+        if (nombres.getText().isEmpty() || apellidos.getText().isEmpty() || telefono.getText().isEmpty() || direccion.getText().isEmpty() || email.getText().isEmpty()) {
+            salida.setText("Los campos estan vacios o incompletos. Llene todos los campos. ");
+        } else {
+            boolean agre = c.insertar(nombres.getText(), apellidos.getText(), direccion.getText(), telefono.getText(), email.getText());
+            if (agre) {
+                salida.setText("El contacto ha agregado correctamente.");
+            } else{
+                salida.setText("Error agregando contacto.");
+            }
+        }
     }//GEN-LAST:event_B_AgregarActionPerformed
 
     private void B_ConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_ConsultarActionPerformed
+        ArrayList<CContacto> lista = new ArrayList<>();
+        lista = c.consultar();
+
         //limpio la tabla antes de llevar los valores
         modelo.setRowCount(0);
-        Connection con = conectar();
-        String query = "SELECT * FROM datos;";
-        try {
-            //preparo la consulta
-            PreparedStatement preparar = con.prepareStatement(query);
-            //ejecuto la consulta luego de prepararla, como es un select devuelve una lista de tipo ResultSet
-            ResultSet resultado = preparar.executeQuery();
-            //hago un ciclo para recorrer la lista y ponerla en la tabla de la interfaz
-            while (resultado.next()) {
-                modelo.addRow(new Object[]{resultado.getInt("id"), resultado.getString("nombres"), resultado.getString("apellidos"), resultado.getString("telefono"), resultado.getString("direccion"), resultado.getString("email")});
-            }
-            salida.setText("Conexión correcta"); // si lo de arriba se hizo, devuelve la salida correcta
-        } catch (SQLException ex) {
-            System.out.println("Error en el sql");
+        
+        for (CContacto con: lista){
+            modelo.addRow(new Object[]{con.getId(), con.getNombres(), con.getApellidos(), con.getTelefono(), con.getDireccion(), con.getEmail()});
         }
 
     }//GEN-LAST:event_B_ConsultarActionPerformed
@@ -980,22 +980,22 @@ public class interfazAgendaMVC extends javax.swing.JFrame {
                 }
                 if (opcion.equals("apellidos")) {
                     while (resultado.next()) {
-                        modelo.addRow(new Object[]{(""),(""), resultado.getString("apellidos")});
+                        modelo.addRow(new Object[]{(""), (""), resultado.getString("apellidos")});
                     }
                 }
                 if (opcion.equals("telefono")) {
                     while (resultado.next()) {
-                        modelo.addRow(new Object[]{(""),(""),(""), resultado.getString("telefono")});
+                        modelo.addRow(new Object[]{(""), (""), (""), resultado.getString("telefono")});
                     }
                 }
                 if (opcion.equals("direccion")) {
                     while (resultado.next()) {
-                        modelo.addRow(new Object[]{(""),(""),(""),(""), resultado.getString("direccion")});
+                        modelo.addRow(new Object[]{(""), (""), (""), (""), resultado.getString("direccion")});
                     }
                 }
                 if (opcion.equals("email")) {
                     while (resultado.next()) {
-                        modelo.addRow(new Object[]{(""),(""),(""),(""),(""), resultado.getString("email")});
+                        modelo.addRow(new Object[]{(""), (""), (""), (""), (""), resultado.getString("email")});
                     }
                 }
                 salida.setText("Listado de: " + opcion); // si lo de arriba se hizo, devuelve la salida correcta

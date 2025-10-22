@@ -11,6 +11,7 @@ public class CConexion {
    public CConexion(){
        
    }
+   
    public Connection conectar(){
        Connection con=null;
        try{         
