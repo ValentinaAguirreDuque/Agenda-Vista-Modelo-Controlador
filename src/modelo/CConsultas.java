@@ -1,5 +1,5 @@
-
 package modelo;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -57,6 +57,49 @@ public class CConsultas {
         } catch (SQLException ex) {
             System.out.println("Error en el sql");
             return null;
+        }
+    }
+
+    public boolean borrar(Connection con, String telefono) {
+        this.con = con;
+        query = "DELETE FROM datos WHERE telefono = '" + telefono + "' ; ";
+        try {
+            //preparo la consulta
+            PreparedStatement preparar = con.prepareStatement(query);
+            //ejecuto la consulta luego de prepararla
+            
+            // Para verificar que si se haya realizado un cambio
+            if (preparar.executeUpdate() > 0) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Error en el sql");
+            return false;
+        }
+    }
+
+    public boolean editar (Connection con, String nombres, String apellidos, String telefono, String direccion, String email) {
+        this.con = con;
+        query = "UPDATE `datos` SET nombres='" + nombres + "' , apellidos= '" + apellidos + "' , telefono= '" + telefono + "', direccion='" + direccion+ "', email='" + email + "' WHERE telefono = '" + telefono + "' ; ";
+
+        try {
+            //preparo la consulta
+            PreparedStatement preparar = con.prepareStatement(query);
+            //ejecuto la consulta luego de prepararla
+            
+            // Para verificar que si se haya realizado un cambio
+            if (preparar.executeUpdate() > 0) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Error en el sql");
+            return false;
         }
     }
 }

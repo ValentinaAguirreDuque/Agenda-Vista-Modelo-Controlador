@@ -497,8 +497,8 @@ public class interfazAgendaMVC extends javax.swing.JFrame {
         } else {
             boolean agre = c.insertar(nombres.getText(), apellidos.getText(), direccion.getText(), telefono.getText(), email.getText());
             if (agre) {
-                salida.setText("El contacto ha agregado correctamente.");
-            } else{
+                salida.setText("El contacto se ha agregado correctamente.");
+            } else {
                 salida.setText("Error agregando contacto.");
             }
         }
@@ -510,68 +510,37 @@ public class interfazAgendaMVC extends javax.swing.JFrame {
 
         //limpio la tabla antes de llevar los valores
         modelo.setRowCount(0);
-        
-        for (CContacto con: lista){
+
+        for (CContacto con : lista) {
             modelo.addRow(new Object[]{con.getId(), con.getNombres(), con.getApellidos(), con.getTelefono(), con.getDireccion(), con.getEmail()});
         }
 
     }//GEN-LAST:event_B_ConsultarActionPerformed
 
     private void B_BorrarContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_BorrarContactoActionPerformed
-        Connection con = conectar();
-        if (con != null) {
-            if (!telefono.getText().isEmpty()) {
-                String query = "DELETE FROM datos WHERE telefono = '" + telefono.getText() + "' ; ";
-
-                try {
-                    //preparo la consulta
-                    PreparedStatement preparar = con.prepareStatement(query);
-                    //ejecuto la consulta luego de prepararla, cuando la consulta es insert, update, delete etc, devuelve un entero con el número de filas afectadas
-                    if (preparar.executeUpdate() > 0) { // mientras el numero de filas afectadas sea mayor que 0, quiere decir que SI se realizó un cambio.
-                        salida.setText("El contacto  se borró correctamente. ");
-                    } else { // si el numero de filas afectadas es 0, quiere decir que NO se realizó un cambio.
-                        salida.setText("El teléfono ingresado no existe  ");
-                    }
-                } catch (SQLException ex) {
-                    salida.setText("Error: no se borró el contacto. ");
-                }
-            } else {
-                salida.setText("No se ha ingresado un teléfono. ");
-            }
+        if (telefono.getText().isEmpty()) {
+            salida.setText("No se ha ingresado un teléfono ");
         } else {
-            salida.setText("No se pudo conectar con el servidor. ");
+            boolean borr = c.borrar(telefono.getText());
+            if (borr) {
+                salida.setText("El contacto se ha borrado correctamente.");
+            } else {
+                salida.setText("Error borrando contacto.");
+            }
         }
     }//GEN-LAST:event_B_BorrarContactoActionPerformed
 
     private void B_EditarContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_EditarContactoActionPerformed
-        Connection con = conectar();
-        if (con != null) {
-            if (!telefono.getText().isEmpty()) {
 
-                if (nombres.getText().isEmpty() || apellidos.getText().isEmpty() || telefono.getText().isEmpty() || direccion.getText().isEmpty() || email.getText().isEmpty()) {
-                    salida.setText("Los campos estan vacios o incompletos. Llene todos los campos. ");
-                } else {
-
-                    String query = "UPDATE `datos` SET nombres='" + nombres.getText() + "' , apellidos= '" + apellidos.getText() + "' , telefono= '" + telefono.getText() + "', direccion='" + direccion.getText() + "', email='" + email.getText() + "' WHERE telefono = '" + telefono.getText() + "' ; ";
-
-                    try {
-                        //preparo la consulta
-                        PreparedStatement preparar = con.prepareStatement(query);
-                        //ejecuto la consulta luego de prepararla, cuando la consulta es insert, update, delete etc, devuelve un entero con el número de filas afectadas
-                        if (preparar.executeUpdate() > 0) { // mientras el numero de filas afectadas sea mayor que 0, quiere decir que SI se realizó un cambio.
-                            salida.setText("El contacto  se actualizó correctamente. ");
-                        } else { // si el numero de filas afectadas es 0, quiere decir que NO se realizó un cambio.
-                            salida.setText("El contacto ingresado no existe  ");
-                        }
-                    } catch (SQLException ex) {
-                        salida.setText("Error: no se actualizó el contacto. ");
-                    }
-                }
-            } else {
-                salida.setText("No se ha ingresado un teléfono para actualizar un contacto. ");
-            }
+        if (nombres.getText().isEmpty() || apellidos.getText().isEmpty() || telefono.getText().isEmpty() || direccion.getText().isEmpty() || email.getText().isEmpty()) {
+            salida.setText("Los campos estan vacios o incompletos. Llene todos los campos. ");
         } else {
-            salida.setText("No se pudo conectar con el servidor. ");
+            boolean edit = c.editar(nombres.getText(), apellidos.getText(), direccion.getText(), telefono.getText(), email.getText());
+            if (edit) {
+                salida.setText("El contacto se ha editado correctamente.");
+            } else {
+                salida.setText("Error editando contacto.");
+            }
         }
     }//GEN-LAST:event_B_EditarContactoActionPerformed
 

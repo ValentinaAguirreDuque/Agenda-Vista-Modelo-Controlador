@@ -34,5 +34,19 @@ public class CControl {
        } 
     }
     
+    public boolean borrar (String telefono){
+       conecta=con.conectar();
+       boolean bandera=consulta.borrar(conecta,telefono);
+       con.desconectar(conecta);
+       return bandera;
+    }
+    
+    public boolean editar (String nombres, String apellidos, String direccion, String telefono, String email){
+       conecta=con.conectar();
+       boolean bandera=consulta.editar(conecta, nombres, apellidos,direccion,telefono,email);
+       con.desconectar(conecta);
+       return bandera;
+    }
+    
     
 }
