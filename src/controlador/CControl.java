@@ -71,4 +71,28 @@ public class CControl {
             return null;
         }
     }
+    
+    public ArrayList<CContacto> BuscarPorNombreInicial(String nombres) {
+        ArrayList<CContacto> lista = new ArrayList<>();
+        conecta = con.conectar();
+        if (conecta != null) {
+            lista = consulta.BuscarPorNombreInicial(conecta, nombres);
+            con.desconectar(conecta);
+            return lista;
+        } else {
+            return null;
+        }
+    }
+    
+    public ArrayList<CContacto> BuscarPorApellidoInicial(String apellidos) {
+        ArrayList<CContacto> lista = new ArrayList<>();
+        conecta = con.conectar();
+        if (conecta != null) {
+            lista = consulta.BuscarPorApellidoInicial(conecta, apellidos);
+            con.desconectar(conecta);
+            return lista;
+        } else {
+            return null;
+        }
+    }
 }

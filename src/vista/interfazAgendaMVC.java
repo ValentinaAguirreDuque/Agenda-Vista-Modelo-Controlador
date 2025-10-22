@@ -2,7 +2,6 @@ package vista;
 
 import controlador.*;
 import javax.swing.table.DefaultTableModel;
-import java.sql.*;
 import java.util.ArrayList;
 import modelo.CContacto;
 
@@ -598,82 +597,46 @@ public class interfazAgendaMVC extends javax.swing.JFrame {
     }//GEN-LAST:event_idFinalActionPerformed
 
     private void B_BuscarPorNombreInicialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_BuscarPorNombreInicialActionPerformed
-        Connection con = conectar();
+        ArrayList<CContacto> lista = new ArrayList<>();
+        lista = c.BuscarPorNombreInicial(nombres.getText());
+
         modelo.setRowCount(0);
 
-        if (con != null) {
-            if (!nombres.getText().isEmpty()) {
-                if (nombres.getText().isEmpty()) {
-                    salida.setText("El campo -Nombres- está vacío. Llene los campos");
-                } else {
-                    String query = "SELECT * FROM datos WHERE nombres LIKE '" + nombres.getText() + "%' ;";
-
-                    try {
-                        //preparo la consulta
-                        PreparedStatement preparar = con.prepareStatement(query);
-                        //ejecuto la consulta luego de prepararla, como es un select devuelve una lista de tipo ResultSet
-                        ResultSet resultado = preparar.executeQuery();
-                        //hago un ciclo para recorrer la lista y ponerla en la tabla de la interfaz
-                        boolean nomb = false;
-                        while (resultado.next()) {
-                            modelo.addRow(new Object[]{resultado.getInt("id"), resultado.getString("nombres"), resultado.getString("apellidos"), resultado.getString("telefono"), resultado.getString("direccion"), resultado.getString("email")});
-                            nomb = true;
-                        }
-                        if (nomb) {
-                            salida.setText("Listado de nombres con: " + nombres.getText() + "."); // si lo de arriba se hizo, devuelve la salida correcta
-                        } else {
-                            salida.setText("No se encuentran ese nombre o iniciales. ");
-                        }
-
-                    } catch (SQLException ex) {
-                        salida.setText("Error en el sql");
-                    }
-                }
-            } else {
-                salida.setText("No se ha ingresado un nombre o inicial para buscar en los contactos. ");
-            }
+        if (nombres.getText().isEmpty()) {
+            salida.setText("El campo -Nombres- está vacío. Llene los campos");
         } else {
-            salida.setText("No se pudo conectar con el servidor. ");
+            boolean nomb = false;
+            for (CContacto con : lista) {
+                modelo.addRow(new Object[]{con.getId(), con.getNombres(), con.getApellidos(), con.getTelefono(), con.getDireccion(), con.getEmail()});
+                nomb = true;
+            }
+            if (nomb) {
+                salida.setText("Listado de nombres con: " + nombres.getText() + "."); // si lo de arriba se hizo, devuelve la salida correcta
+            } else {
+                salida.setText("No se encuentran ese nombre o iniciales. ");
+            }
         }
     }//GEN-LAST:event_B_BuscarPorNombreInicialActionPerformed
 
     private void B_BuscarPorApellidoInicialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_BuscarPorApellidoInicialActionPerformed
-        Connection con = conectar();
+        ArrayList<CContacto> lista = new ArrayList<>();
+        lista = c.BuscarPorApellidoInicial(apellidos.getText());
+
         modelo.setRowCount(0);
 
-        if (con != null) {
-            if (!apellidos.getText().isEmpty()) {
-                if (apellidos.getText().isEmpty()) {
-                    salida.setText("El campo -Apellidos- está vacío. Llene los campos");
-                } else {
-                    String query = "SELECT * FROM datos WHERE apellidos LIKE '" + apellidos.getText() + "%' ;";
-
-                    try {
-                        //preparo la consulta
-                        PreparedStatement preparar = con.prepareStatement(query);
-                        //ejecuto la consulta luego de prepararla, como es un select devuelve una lista de tipo ResultSet
-                        ResultSet resultado = preparar.executeQuery();
-                        //hago un ciclo para recorrer la lista y ponerla en la tabla de la interfaz
-                        boolean ap = false;
-                        while (resultado.next()) {
-                            modelo.addRow(new Object[]{resultado.getInt("id"), resultado.getString("nombres"), resultado.getString("apellidos"), resultado.getString("telefono"), resultado.getString("direccion"), resultado.getString("email")});
-                            ap = true;
-                        }
-                        if (ap) {
-                            salida.setText("Listado de apellidos con: " + apellidos.getText() + "."); // si lo de arriba se hizo, devuelve la salida correcta
-                        } else {
-                            salida.setText("No se encuentran ese apellido o iniciales. ");
-                        }
-
-                    } catch (SQLException ex) {
-                        salida.setText("Error en el sql");
-                    }
-                }
-            } else {
-                salida.setText("No se ha ingresado un apellido o inicial para buscar en los contactos. ");
-            }
+        if (apellidos.getText().isEmpty()) {
+            salida.setText("El campo -Apellidos- está vacío. Llene los campos");
         } else {
-            salida.setText("No se pudo conectar con el servidor. ");
+            boolean ape = false;
+            for (CContacto con : lista) {
+                modelo.addRow(new Object[]{con.getId(), con.getNombres(), con.getApellidos(), con.getTelefono(), con.getDireccion(), con.getEmail()});
+                ape = true;
+            }
+            if (ape) {
+                salida.setText("Listado de apellidos con: " + apellidos.getText() + "."); // si lo de arriba se hizo, devuelve la salida correcta
+            } else {
+                salida.setText("No se encuentran ese apellido o iniciales. ");
+            }
         }
     }//GEN-LAST:event_B_BuscarPorApellidoInicialActionPerformed
 
