@@ -545,82 +545,47 @@ public class interfazAgendaMVC extends javax.swing.JFrame {
     }//GEN-LAST:event_B_EditarContactoActionPerformed
 
     private void B_ListarCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_ListarCiudadActionPerformed
-        Connection con = conectar();
+        ArrayList<CContacto> lista = new ArrayList<>();
+        lista = c.listarCiudad(direccion.getText());
+
         modelo.setRowCount(0);
 
-        if (con != null) {
-            if (!direccion.getText().isEmpty()) {
-                if (direccion.getText().isEmpty()) {
-                    salida.setText("El campo -Direccion- está vacio. Llene el campo");
-                } else {
-                    String query = "SELECT * FROM datos WHERE direccion LIKE '%" + direccion.getText() + "%' ;";
-
-                    try {
-                        //preparo la consulta
-                        PreparedStatement preparar = con.prepareStatement(query);
-                        //ejecuto la consulta luego de prepararla, como es un select devuelve una lista de tipo ResultSet
-                        ResultSet resultado = preparar.executeQuery();
-                        //hago un ciclo para recorrer la lista y ponerla en la tabla de la interfaz
-                        boolean ciudad = false;
-                        while (resultado.next()) {
-                            modelo.addRow(new Object[]{resultado.getInt("id"), resultado.getString("nombres"), resultado.getString("apellidos"), resultado.getString("telefono"), resultado.getString("direccion"), resultado.getString("email")});
-                            ciudad = true;
-                        }
-                        if (ciudad) {
-                            salida.setText("Listado de la ciudad " + direccion.getText() + "."); // si lo de arriba se hizo, devuelve la salida correcta
-                        } else {
-                            salida.setText("No se encuentra la ciudad. ");
-                        }
-
-                    } catch (SQLException ex) {
-                        salida.setText("Error en el sql");
-                    }
-                }
-            } else {
-                salida.setText("No se ha ingresado una dirección para buscar los contactos. ");
-            }
+        if (direccion.getText().isEmpty()) {
+            salida.setText("El campo -Direccion- está vacio. Llene el campo");
         } else {
-            salida.setText("No se pudo conectar con el servidor. ");
+            boolean ciudad = false;
+            for (CContacto con : lista) {
+                modelo.addRow(new Object[]{con.getId(), con.getNombres(), con.getApellidos(), con.getTelefono(), con.getDireccion(), con.getEmail()});
+                ciudad = true;
+            }
+            if (ciudad) {
+                salida.setText("Listado de la ciudad " + direccion.getText() + "."); // si lo de arriba se hizo, devuelve la salida correcta
+            } else {
+                salida.setText("No se encuentra la ciudad. ");
+            }
         }
     }//GEN-LAST:event_B_ListarCiudadActionPerformed
 
     private void B_ListarRangoIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_ListarRangoIDActionPerformed
-        Connection con = conectar();
+        ArrayList<CContacto> lista = new ArrayList<>();
+        lista = c.listarRangoID(idInicial.getText(), idFinal.getText());
+
         modelo.setRowCount(0);
 
-        if (con != null) {
-            if (!idInicial.getText().isEmpty() || !idFinal.getText().isEmpty()) {
-                if (idInicial.getText().isEmpty() || idFinal.getText().isEmpty()) {
-                    salida.setText("El campo -Id Inicial- y/o -Id Final- está/n vacio/s. Llene los campos");
-                } else {
-                    String query = "SELECT * FROM datos WHERE id BETWEEN ' " + idInicial.getText() + " ' AND '" + idFinal.getText() + "' ;";
-
-                    try {
-                        //preparo la consulta
-                        PreparedStatement preparar = con.prepareStatement(query);
-                        //ejecuto la consulta luego de prepararla, como es un select devuelve una lista de tipo ResultSet
-                        ResultSet resultado = preparar.executeQuery();
-                        //hago un ciclo para recorrer la lista y ponerla en la tabla de la interfaz
-                        boolean id = false;
-                        while (resultado.next()) {
-                            modelo.addRow(new Object[]{resultado.getInt("id"), resultado.getString("nombres"), resultado.getString("apellidos"), resultado.getString("telefono"), resultado.getString("direccion"), resultado.getString("email")});
-                            id = true;
-                        }
-                        if (id) {
-                            salida.setText("Listado por id en rango " + idInicial.getText() + " y " + idFinal.getText() + "."); // si lo de arriba se hizo, devuelve la salida correcta
-                        } else {
-                            salida.setText("No se encuentran los rangos de ID. ");
-                        }
-
-                    } catch (SQLException ex) {
-                        salida.setText("Error en el sql");
-                    }
-                }
-            } else {
-                salida.setText("No se ha ingresado un Id para buscar los contactos. ");
-            }
+        if (idInicial.getText().isEmpty() || idFinal.getText().isEmpty()) {
+            salida.setText("El campo -Id Inicial- y/o -Id Final- está/n vacio/s. Llene los campos");
         } else {
-            salida.setText("No se pudo conectar con el servidor. ");
+
+            boolean id = false;
+            for (CContacto con : lista) {
+                modelo.addRow(new Object[]{con.getId(), con.getNombres(), con.getApellidos(), con.getTelefono(), con.getDireccion(), con.getEmail()});
+                id = true;
+            }
+            if (id) {
+                salida.setText("Listado por id en rango " + idInicial.getText() + " y " + idFinal.getText() + "."); // si lo de arriba se hizo, devuelve la salida correcta
+            } else {
+                salida.setText("No se encuentran los rangos de ID. ");
+            }
         }
     }//GEN-LAST:event_B_ListarRangoIDActionPerformed
 
