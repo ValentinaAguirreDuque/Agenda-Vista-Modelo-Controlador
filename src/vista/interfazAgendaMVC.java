@@ -668,7 +668,7 @@ public class interfazAgendaMVC extends javax.swing.JFrame {
 
     private void B_ListarDireccionCalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_ListarDireccionCalleActionPerformed
         ArrayList<CContacto> lista = new ArrayList<>();
-        lista = c.ListarDireccionCalle(direccion.getText());
+        lista = c.ListarDireccionCalle();
 
         modelo.setRowCount(0);
 
@@ -680,114 +680,50 @@ public class interfazAgendaMVC extends javax.swing.JFrame {
     }//GEN-LAST:event_B_ListarDireccionCalleActionPerformed
 
     private void B_ListarDireccionCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_ListarDireccionCarreraActionPerformed
-        Connection con = conectar();
+        ArrayList<CContacto> lista = new ArrayList<>();
+        lista = c.ListarDireccionCarrera();
+
         modelo.setRowCount(0);
 
-        if (con != null) {
-
-            String query = "SELECT * FROM datos WHERE direccion LIKE 'Cra%' OR direccion LIKE 'Carrera%' ;";
-
-            try {
-                //preparo la consulta
-                PreparedStatement preparar = con.prepareStatement(query);
-                //ejecuto la consulta luego de prepararla, como es un select devuelve una lista de tipo ResultSet
-                ResultSet resultado = preparar.executeQuery();
-                //hago un ciclo para recorrer la lista y ponerla en la tabla de la interfaz
-                while (resultado.next()) {
-                    modelo.addRow(new Object[]{resultado.getInt("id"), resultado.getString("nombres"), resultado.getString("apellidos"), resultado.getString("telefono"), resultado.getString("direccion"), resultado.getString("email")});
-                }
-                salida.setText("Listado por carrera. "); // si lo de arriba se hizo, devuelve la salida correcta
-            } catch (SQLException ex) {
-                salida.setText("Error en el sql");
-            }
+        for (CContacto con : lista) {
+            modelo.addRow(new Object[]{con.getId(), con.getNombres(), con.getApellidos(), con.getTelefono(), con.getDireccion(), con.getEmail()});
+            salida.setText("Listado por carrera"); // si lo de arriba se hizo, devuelve la salida correcta
         }
     }//GEN-LAST:event_B_ListarDireccionCarreraActionPerformed
 
     private void B_ListarPrefijoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_ListarPrefijoActionPerformed
-        Connection con = conectar();
+        ArrayList<CContacto> lista = new ArrayList<>();
+        lista = c.ListarPrefijo(telefono.getText());
+
         modelo.setRowCount(0);
 
-        if (con != null) {
-            if (!telefono.getText().isEmpty()) {
-                if (telefono.getText().isEmpty()) {
-                    salida.setText("El campo -Teléfono- está vacío. Llene los campos");
-                } else {
-                    String query = "SELECT * FROM datos WHERE telefono LIKE '" + telefono.getText() + "%' ;";
-
-                    try {
-                        //preparo la consulta
-                        PreparedStatement preparar = con.prepareStatement(query);
-                        //ejecuto la consulta luego de prepararla, como es un select devuelve una lista de tipo ResultSet
-                        ResultSet resultado = preparar.executeQuery();
-                        //hago un ciclo para recorrer la lista y ponerla en la tabla de la interfaz
-                        boolean tel = false;
-                        while (resultado.next()) {
-                            modelo.addRow(new Object[]{resultado.getInt("id"), resultado.getString("nombres"), resultado.getString("apellidos"), resultado.getString("telefono"), resultado.getString("direccion"), resultado.getString("email")});
-                            tel = true;
-                        }
-                        if (tel) {
-                            salida.setText("Listado de teléfonos con prefijo: " + telefono.getText() + "."); // si lo de arriba se hizo, devuelve la salida correcta
-                        } else {
-                            salida.setText("No se encuentran ese prefijo. ");
-                        }
-
-                    } catch (SQLException ex) {
-                        salida.setText("Error en el sql");
-                    }
-                }
-            } else {
-                salida.setText("No se ha ingresado un prefijo para buscar en los contactos. ");
-            }
-        } else {
-            salida.setText("No se pudo conectar con el servidor. ");
+        for (CContacto con : lista) {
+            modelo.addRow(new Object[]{con.getId(), con.getNombres(), con.getApellidos(), con.getTelefono(), con.getDireccion(), con.getEmail()});
+            salida.setText("Listado por prefijo: " + telefono.getText()); // si lo de arriba se hizo, devuelve la salida correcta
         }
     }//GEN-LAST:event_B_ListarPrefijoActionPerformed
 
     private void B_ListarAlfabeticamenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_ListarAlfabeticamenteActionPerformed
-        Connection con = conectar();
+        ArrayList<CContacto> lista = new ArrayList<>();
+        lista = c.ListarAlfabeticamente();
+
         modelo.setRowCount(0);
 
-        if (con != null) {
-
-            String query = "SELECT * FROM datos ORDER BY nombres;";
-
-            try {
-                //preparo la consulta
-                PreparedStatement preparar = con.prepareStatement(query);
-                //ejecuto la consulta luego de prepararla, como es un select devuelve una lista de tipo ResultSet
-                ResultSet resultado = preparar.executeQuery();
-                //hago un ciclo para recorrer la lista y ponerla en la tabla de la interfaz
-                while (resultado.next()) {
-                    modelo.addRow(new Object[]{resultado.getInt("id"), resultado.getString("nombres"), resultado.getString("apellidos"), resultado.getString("telefono"), resultado.getString("direccion"), resultado.getString("email")});
-                }
-                salida.setText("Listado en orden alfabetico A-Z. "); // si lo de arriba se hizo, devuelve la salida correcta
-            } catch (SQLException ex) {
-                salida.setText("Error en el sql");
-            }
+        for (CContacto con : lista) {
+            modelo.addRow(new Object[]{con.getId(), con.getNombres(), con.getApellidos(), con.getTelefono(), con.getDireccion(), con.getEmail()});
+            salida.setText("Listado organizado alfabeticamente"); // si lo de arriba se hizo, devuelve la salida correcta
         }
     }//GEN-LAST:event_B_ListarAlfabeticamenteActionPerformed
 
     private void B_ListarIDparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_ListarIDparActionPerformed
-        Connection con = conectar();
+        ArrayList<CContacto> lista = new ArrayList<>();
+        lista = c.ListarIDpar();
+
         modelo.setRowCount(0);
 
-        if (con != null) {
-
-            String query = "SELECT * FROM datos WHERE id %2 = 0";
-
-            try {
-                //preparo la consulta
-                PreparedStatement preparar = con.prepareStatement(query);
-                //ejecuto la consulta luego de prepararla, como es un select devuelve una lista de tipo ResultSet
-                ResultSet resultado = preparar.executeQuery();
-                //hago un ciclo para recorrer la lista y ponerla en la tabla de la interfaz
-                while (resultado.next()) {
-                    modelo.addRow(new Object[]{resultado.getInt("id"), resultado.getString("nombres"), resultado.getString("apellidos"), resultado.getString("telefono"), resultado.getString("direccion"), resultado.getString("email")});
-                }
-                salida.setText("Listado de ID par. "); // si lo de arriba se hizo, devuelve la salida correcta
-            } catch (SQLException ex) {
-                salida.setText("Error en el sql");
-            }
+        for (CContacto con : lista) {
+            modelo.addRow(new Object[]{con.getId(), con.getNombres(), con.getApellidos(), con.getTelefono(), con.getDireccion(), con.getEmail()});
+            salida.setText("Listado de ID par. "); // si lo de arriba se hizo, devuelve la salida correcta
         }
     }//GEN-LAST:event_B_ListarIDparActionPerformed
 

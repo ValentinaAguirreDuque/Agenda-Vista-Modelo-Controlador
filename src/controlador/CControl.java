@@ -108,15 +108,68 @@ public class CControl {
         }
     }
     
-    public ArrayList<CContacto> ListarDireccionCalle(String direccion) {
+    public ArrayList<CContacto> ListarDireccionCalle() {
         ArrayList<CContacto> lista = new ArrayList<>();
         conecta = con.conectar();
         if (conecta != null) {
-            lista = consulta.ListarDireccionCalle(conecta, direccion);
+            lista = consulta.ListarDireccionCalle(conecta);
             con.desconectar(conecta);
             return lista;
         } else {
             return null;
         }
     }
+    
+    public ArrayList<CContacto> ListarDireccionCarrera() {
+        ArrayList<CContacto> lista = new ArrayList<>();
+        conecta = con.conectar();
+        if (conecta != null) {
+            lista = consulta.ListarDireccionCarrera(conecta);
+            con.desconectar(conecta);
+            return lista;
+        } else {
+            return null;
+        }
+    }
+    
+    public ArrayList<CContacto> ListarPrefijo(String telefono) {
+        ArrayList<CContacto> lista = new ArrayList<>();
+        conecta = con.conectar();
+        if (conecta != null) {
+            lista = consulta.ListarPrefijo(conecta, telefono);
+            con.desconectar(conecta);
+            return lista;
+        } else {
+            return null;
+        }
+    }
+
+    public ArrayList<CContacto> ListarAlfabeticamente() {
+        ArrayList<CContacto> lista = new ArrayList<>();
+        conecta = con.conectar();
+        if (conecta != null) {
+            lista = consulta.ListarAlfabeticamente(conecta);
+            con.desconectar(conecta);
+            return lista;
+        } else {
+            return null;
+        }
+    }
+    
+    public ArrayList<CContacto> ListarIDpar() {
+        ArrayList<CContacto> lista = new ArrayList<>();
+        conecta = con.conectar();
+        if (conecta != null) {
+            lista = consulta.ListarIDpar(conecta);
+            con.desconectar(conecta);
+            return lista;
+        } else {
+            return null;
+        }
+    }
+    
+    
+    
+    
+    
 }

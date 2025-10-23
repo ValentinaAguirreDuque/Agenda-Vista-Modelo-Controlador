@@ -195,7 +195,6 @@ public class CConsultas {
         }
     }
 
-    
     public ArrayList<CContacto> BuscarPorApellidoInicial(Connection con, String apellidos) {
         this.con = con;
         query = "SELECT * FROM datos WHERE apellidos LIKE '" + apellidos + "%' ;";
@@ -226,7 +225,7 @@ public class CConsultas {
             return null;
         }
     }
-    
+
     public ArrayList<CContacto> BuscarPorID(Connection con, String id) {
         this.con = con;
         query = "SELECT * FROM datos WHERE id LIKE '" + id + "' ;";
@@ -257,8 +256,8 @@ public class CConsultas {
             return null;
         }
     }
-    
-    public ArrayList<CContacto> ListarDireccionCalle(Connection con, String direccion) {
+
+    public ArrayList<CContacto> ListarDireccionCalle(Connection con) {
         this.con = con;
         query = "SELECT * FROM datos WHERE direccion LIKE 'Cl%' OR direccion LIKE 'Calle%' ;";
 
@@ -288,8 +287,8 @@ public class CConsultas {
             return null;
         }
     }
-    
-    public ArrayList<CContacto> ListarDireccionCarrera(Connection con, String direccion) {
+
+    public ArrayList<CContacto> ListarDireccionCarrera(Connection con) {
         this.con = con;
         query = "SELECT * FROM datos WHERE direccion LIKE 'Cra%' OR direccion LIKE 'Carrera%' ;";
 
@@ -319,4 +318,101 @@ public class CConsultas {
             return null;
         }
     }
-}
+
+    public ArrayList<CContacto> ListarPrefijo(Connection con, String telefono) {
+        this.con = con;
+        query = "SELECT * FROM datos WHERE telefono LIKE '" + telefono + "%' ;";
+
+        ArrayList<CContacto> lista = new ArrayList<>();
+        try {
+            //preparo la consulta
+            PreparedStatement preparar = con.prepareStatement(query);
+            //ejecuto la consulta luego de prepararla
+            ResultSet resultado = preparar.executeQuery();
+
+            while (resultado.next()) {
+                CContacto c = new CContacto(
+                        resultado.getInt("id"),
+                        resultado.getString("nombres"),
+                        resultado.getString("apellidos"),
+                        resultado.getString("telefono"),
+                        resultado.getString("direccion"),
+                        resultado.getString("email")
+                );
+                lista.add(c);
+            }
+            System.out.println("Consulta correcta");
+            return lista;
+
+        } catch (SQLException ex) {
+            System.out.println("Error en el sql");
+            return null;
+        }
+    }
+
+    public ArrayList<CContacto> ListarAlfabeticamente(Connection con) {
+        this.con = con;
+        query = "SELECT * FROM datos ORDER BY nombres;";
+
+        ArrayList<CContacto> lista = new ArrayList<>();
+        try {
+            //preparo la consulta
+            PreparedStatement preparar = con.prepareStatement(query);
+            //ejecuto la consulta luego de prepararla
+            ResultSet resultado = preparar.executeQuery();
+
+            while (resultado.next()) {
+                CContacto c = new CContacto(
+                        resultado.getInt("id"),
+                        resultado.getString("nombres"),
+                        resultado.getString("apellidos"),
+                        resultado.getString("telefono"),
+                        resultado.getString("direccion"),
+                        resultado.getString("email")
+                );
+                lista.add(c);
+            }
+            System.out.println("Consulta correcta");
+            return lista;
+
+        } catch (SQLException ex) {
+            System.out.println("Error en el sql");
+            return null;
+        }
+    }
+    
+    public ArrayList<CContacto> ListarIDpar(Connection con) {
+        this.con = con;
+        query = "SELECT * FROM datos WHERE id %2 = 0";
+
+        ArrayList<CContacto> lista = new ArrayList<>();
+        try {
+            //preparo la consulta
+            PreparedStatement preparar = con.prepareStatement(query);
+            //ejecuto la consulta luego de prepararla
+            ResultSet resultado = preparar.executeQuery();
+
+            while (resultado.next()) {
+                CContacto c = new CContacto(
+                        resultado.getInt("id"),
+                        resultado.getString("nombres"),
+                        resultado.getString("apellidos"),
+                        resultado.getString("telefono"),
+                        resultado.getString("direccion"),
+                        resultado.getString("email")
+                );
+                lista.add(c);
+            }
+            System.out.println("Consulta correcta");
+            return lista;
+
+        } catch (SQLException ex) {
+            System.out.println("Error en el sql");
+            return null;
+        }
+    }
+    
+    
+    
+
+} // Final

@@ -2,7 +2,6 @@
 package agenda;
 
 import vista.interfazAgendaMVC;
-import vista.interfazAgendaMVC;
 
 
 public class Agenda {
