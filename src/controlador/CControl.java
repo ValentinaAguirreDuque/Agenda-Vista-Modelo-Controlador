@@ -15,9 +15,9 @@ public class CControl {
 
     }
 
-    public boolean insertar(String nombres, String apellidos, String direccion, String telefono, String email) {
+    public boolean insertar(String nombres, String apellidos, String telefono, String direccion, String email) {
         conecta = con.conectar();
-        boolean bandera = consulta.ingresar(conecta, nombres, apellidos, direccion, telefono, email);
+        boolean bandera = consulta.ingresar(conecta, nombres, apellidos, telefono, direccion, email);
         con.desconectar(conecta);
         return bandera;
     }
@@ -168,7 +168,29 @@ public class CControl {
         }
     }
     
+    public ArrayList<CContacto> ListarIDimpar() {
+        ArrayList<CContacto> lista = new ArrayList<>();
+        conecta = con.conectar();
+        if (conecta != null) {
+            lista = consulta.ListarIDimpar(conecta);
+            con.desconectar(conecta);
+            return lista;
+        } else {
+            return null;
+        }
+    }
     
+    public ArrayList<CContacto> ListarUnCampo(String opcion) {
+        ArrayList<CContacto> lista = new ArrayList<>();
+        conecta = con.conectar();
+        if (conecta != null) {
+            lista = consulta.ListarUnCampo(conecta, opcion);
+            con.desconectar(conecta);
+            return lista;
+        } else {
+            return null;
+        }
+    }
     
     
     

@@ -1,29 +1,28 @@
-
 package modelo;
 
-
 public class CContacto {
-    int id;
+
+    String id;
     String nombres;
     String apellidos;
     String telefono;
     String direccion;
     String email;
-    
-    public CContacto(){
-        
-    }
-    
-    public CContacto(int id, String nombres, String apellidos, String telefono, String direccion, String email){
-        this.id=id;
-        this.nombres=nombres;
-        this.apellidos=apellidos;
-        this.direccion=direccion;
-        this.telefono=telefono;
-        this.email=email;
+
+    public CContacto() {
+
     }
 
-    public int getId() {
+    public CContacto(String id, String nombres, String apellidos, String telefono, String direccion, String email) {
+        this.id = id;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.telefono = telefono;
+        this.direccion = direccion;
+        this.email = email;
+    }
+
+    public String getId() {
         return id;
     }
 

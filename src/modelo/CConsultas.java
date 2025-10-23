@@ -42,7 +42,7 @@ public class CConsultas {
 
             while (resultado.next()) {
                 CContacto c = new CContacto(
-                        resultado.getInt("id"),
+                        resultado.getString("id"),
                         resultado.getString("nombres"),
                         resultado.getString("apellidos"),
                         resultado.getString("telefono"),
@@ -115,7 +115,7 @@ public class CConsultas {
 
             while (resultado.next()) {
                 CContacto c = new CContacto(
-                        resultado.getInt("id"),
+                        resultado.getString("id"),
                         resultado.getString("nombres"),
                         resultado.getString("apellidos"),
                         resultado.getString("telefono"),
@@ -146,7 +146,7 @@ public class CConsultas {
 
             while (resultado.next()) {
                 CContacto c = new CContacto(
-                        resultado.getInt("id"),
+                        resultado.getString("id"),
                         resultado.getString("nombres"),
                         resultado.getString("apellidos"),
                         resultado.getString("telefono"),
@@ -177,7 +177,7 @@ public class CConsultas {
 
             while (resultado.next()) {
                 CContacto c = new CContacto(
-                        resultado.getInt("id"),
+                        resultado.getString("id"),
                         resultado.getString("nombres"),
                         resultado.getString("apellidos"),
                         resultado.getString("telefono"),
@@ -208,7 +208,7 @@ public class CConsultas {
 
             while (resultado.next()) {
                 CContacto c = new CContacto(
-                        resultado.getInt("id"),
+                        resultado.getString("id"),
                         resultado.getString("nombres"),
                         resultado.getString("apellidos"),
                         resultado.getString("telefono"),
@@ -239,7 +239,7 @@ public class CConsultas {
 
             while (resultado.next()) {
                 CContacto c = new CContacto(
-                        resultado.getInt("id"),
+                        resultado.getString("id"),
                         resultado.getString("nombres"),
                         resultado.getString("apellidos"),
                         resultado.getString("telefono"),
@@ -270,7 +270,7 @@ public class CConsultas {
 
             while (resultado.next()) {
                 CContacto c = new CContacto(
-                        resultado.getInt("id"),
+                        resultado.getString("id"),
                         resultado.getString("nombres"),
                         resultado.getString("apellidos"),
                         resultado.getString("telefono"),
@@ -301,7 +301,7 @@ public class CConsultas {
 
             while (resultado.next()) {
                 CContacto c = new CContacto(
-                        resultado.getInt("id"),
+                        resultado.getString("id"),
                         resultado.getString("nombres"),
                         resultado.getString("apellidos"),
                         resultado.getString("telefono"),
@@ -332,7 +332,7 @@ public class CConsultas {
 
             while (resultado.next()) {
                 CContacto c = new CContacto(
-                        resultado.getInt("id"),
+                        resultado.getString("id"),
                         resultado.getString("nombres"),
                         resultado.getString("apellidos"),
                         resultado.getString("telefono"),
@@ -363,7 +363,7 @@ public class CConsultas {
 
             while (resultado.next()) {
                 CContacto c = new CContacto(
-                        resultado.getInt("id"),
+                        resultado.getString("id"),
                         resultado.getString("nombres"),
                         resultado.getString("apellidos"),
                         resultado.getString("telefono"),
@@ -380,7 +380,7 @@ public class CConsultas {
             return null;
         }
     }
-    
+
     public ArrayList<CContacto> ListarIDpar(Connection con) {
         this.con = con;
         query = "SELECT * FROM datos WHERE id %2 = 0";
@@ -394,7 +394,7 @@ public class CConsultas {
 
             while (resultado.next()) {
                 CContacto c = new CContacto(
-                        resultado.getInt("id"),
+                        resultado.getString("id"),
                         resultado.getString("nombres"),
                         resultado.getString("apellidos"),
                         resultado.getString("telefono"),
@@ -411,8 +411,94 @@ public class CConsultas {
             return null;
         }
     }
-    
-    
-    
+
+    public ArrayList<CContacto> ListarIDimpar(Connection con) {
+        this.con = con;
+        query = "SELECT * FROM datos WHERE id %2 != 0";
+
+        ArrayList<CContacto> lista = new ArrayList<>();
+        try {
+            //preparo la consulta
+            PreparedStatement preparar = con.prepareStatement(query);
+            //ejecuto la consulta luego de prepararla
+            ResultSet resultado = preparar.executeQuery();
+
+            while (resultado.next()) {
+                CContacto c = new CContacto(
+                        resultado.getString("id"),
+                        resultado.getString("nombres"),
+                        resultado.getString("apellidos"),
+                        resultado.getString("telefono"),
+                        resultado.getString("direccion"),
+                        resultado.getString("email")
+                );
+                lista.add(c);
+            }
+            System.out.println("Consulta correcta");
+            return lista;
+
+        } catch (SQLException ex) {
+            System.out.println("Error en el sql");
+            return null;
+        }
+    }
+
+    public ArrayList<CContacto> ListarUnCampo(Connection con, String opcion) {
+        this.con = con;
+        query = "SELECT" + opcion + " FROM datos ;";
+
+        ArrayList<CContacto> lista = new ArrayList<>();
+        try {
+            //preparo la consulta
+            PreparedStatement preparar = con.prepareStatement(query);
+            //ejecuto la consulta luego de prepararla
+            ResultSet resultado = preparar.executeQuery();
+
+            if (opcion.equals("id")) {
+                while (resultado.next()) {
+                    CContacto c = new CContacto(
+                            resultado.getString("id"), "", "", "", "", "");
+                    lista.add(c);
+                }
+            }
+            if (opcion.equals("nombres")) {
+                while (resultado.next()) {
+                    CContacto c = new CContacto("",resultado.getString("nombres"), "", "", "", "");
+                    lista.add(c);
+                }
+            }
+            if (opcion.equals("apellidos")) {
+                while (resultado.next()) {
+                    CContacto c = new CContacto("","", resultado.getString("apellidos"), "", "", "");
+                    lista.add(c);
+                }
+            }
+            if (opcion.equals("telefono")) {
+                while (resultado.next()) {
+                    CContacto c = new CContacto("","","", resultado.getString("telefono"), "", "");
+                    lista.add(c);
+                }
+            }
+            if (opcion.equals("direccion")) {
+                while (resultado.next()) {
+                    CContacto c = new CContacto("","","","", resultado.getString("direccion"), "");
+                    lista.add(c);
+                }
+            }
+            if (opcion.equals("email")) {
+                while (resultado.next()) {
+                    CContacto c = new CContacto("","","","","", resultado.getString("email"));
+                    lista.add(c);
+                }
+            }
+
+            System.out.println("Consulta correcta");
+            return lista;
+
+        } catch (SQLException ex) {
+            System.out.println("Error en el sql");
+            return null;
+        }
+    }
 
 } // Final

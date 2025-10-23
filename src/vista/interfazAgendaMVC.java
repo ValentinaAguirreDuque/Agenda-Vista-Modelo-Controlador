@@ -494,7 +494,7 @@ public class interfazAgendaMVC extends javax.swing.JFrame {
         if (nombres.getText().isEmpty() || apellidos.getText().isEmpty() || telefono.getText().isEmpty() || direccion.getText().isEmpty() || email.getText().isEmpty()) {
             salida.setText("Los campos estan vacios o incompletos. Llene todos los campos. ");
         } else {
-            boolean agre = c.insertar(nombres.getText(), apellidos.getText(), direccion.getText(), telefono.getText(), email.getText());
+            boolean agre = c.insertar(nombres.getText(), apellidos.getText(), telefono.getText(), direccion.getText(), email.getText());
             if (agre) {
                 salida.setText("El contacto se ha agregado correctamente.");
             } else {
@@ -504,13 +504,13 @@ public class interfazAgendaMVC extends javax.swing.JFrame {
     }//GEN-LAST:event_B_AgregarActionPerformed
 
     private void B_ConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_ConsultarActionPerformed
-        ArrayList<CContacto> lista = new ArrayList<>();
-        lista = c.consultar();
+        ArrayList<CContacto> lista1 = new ArrayList<>();
+        lista1 = c.consultar();
 
         //limpio la tabla antes de llevar los valores
         modelo.setRowCount(0);
 
-        for (CContacto con : lista) {
+        for (CContacto con : lista1) {
             modelo.addRow(new Object[]{con.getId(), con.getNombres(), con.getApellidos(), con.getTelefono(), con.getDireccion(), con.getEmail()});
         }
 
@@ -544,8 +544,8 @@ public class interfazAgendaMVC extends javax.swing.JFrame {
     }//GEN-LAST:event_B_EditarContactoActionPerformed
 
     private void B_ListarCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_ListarCiudadActionPerformed
-        ArrayList<CContacto> lista = new ArrayList<>();
-        lista = c.listarCiudad(direccion.getText());
+        ArrayList<CContacto> lista2 = new ArrayList<>();
+        lista2 = c.listarCiudad(direccion.getText());
 
         modelo.setRowCount(0);
 
@@ -553,7 +553,7 @@ public class interfazAgendaMVC extends javax.swing.JFrame {
             salida.setText("El campo -Direccion- está vacio. Llene el campo");
         } else {
             boolean ciudad = false;
-            for (CContacto con : lista) {
+            for (CContacto con : lista2) {
                 modelo.addRow(new Object[]{con.getId(), con.getNombres(), con.getApellidos(), con.getTelefono(), con.getDireccion(), con.getEmail()});
                 ciudad = true;
             }
@@ -566,8 +566,8 @@ public class interfazAgendaMVC extends javax.swing.JFrame {
     }//GEN-LAST:event_B_ListarCiudadActionPerformed
 
     private void B_ListarRangoIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_ListarRangoIDActionPerformed
-        ArrayList<CContacto> lista = new ArrayList<>();
-        lista = c.listarRangoID(idInicial.getText(), idFinal.getText());
+        ArrayList<CContacto> lista3 = new ArrayList<>();
+        lista3 = c.listarRangoID(idInicial.getText(), idFinal.getText());
 
         modelo.setRowCount(0);
 
@@ -576,7 +576,7 @@ public class interfazAgendaMVC extends javax.swing.JFrame {
         } else {
 
             boolean id = false;
-            for (CContacto con : lista) {
+            for (CContacto con : lista3) {
                 modelo.addRow(new Object[]{con.getId(), con.getNombres(), con.getApellidos(), con.getTelefono(), con.getDireccion(), con.getEmail()});
                 id = true;
             }
@@ -597,8 +597,8 @@ public class interfazAgendaMVC extends javax.swing.JFrame {
     }//GEN-LAST:event_idFinalActionPerformed
 
     private void B_BuscarPorNombreInicialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_BuscarPorNombreInicialActionPerformed
-        ArrayList<CContacto> lista = new ArrayList<>();
-        lista = c.BuscarPorNombreInicial(nombres.getText());
+        ArrayList<CContacto> lista4 = new ArrayList<>();
+        lista4 = c.BuscarPorNombreInicial(nombres.getText());
 
         modelo.setRowCount(0);
 
@@ -606,7 +606,7 @@ public class interfazAgendaMVC extends javax.swing.JFrame {
             salida.setText("El campo -Nombres- está vacío. Llene los campos");
         } else {
             boolean nomb = false;
-            for (CContacto con : lista) {
+            for (CContacto con : lista4) {
                 modelo.addRow(new Object[]{con.getId(), con.getNombres(), con.getApellidos(), con.getTelefono(), con.getDireccion(), con.getEmail()});
                 nomb = true;
             }
@@ -619,8 +619,8 @@ public class interfazAgendaMVC extends javax.swing.JFrame {
     }//GEN-LAST:event_B_BuscarPorNombreInicialActionPerformed
 
     private void B_BuscarPorApellidoInicialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_BuscarPorApellidoInicialActionPerformed
-        ArrayList<CContacto> lista = new ArrayList<>();
-        lista = c.BuscarPorApellidoInicial(apellidos.getText());
+        ArrayList<CContacto> lista5 = new ArrayList<>();
+        lista5 = c.BuscarPorApellidoInicial(apellidos.getText());
 
         modelo.setRowCount(0);
 
@@ -628,7 +628,7 @@ public class interfazAgendaMVC extends javax.swing.JFrame {
             salida.setText("El campo -Apellidos- está vacío. Llene los campos");
         } else {
             boolean ape = false;
-            for (CContacto con : lista) {
+            for (CContacto con : lista5) {
                 modelo.addRow(new Object[]{con.getId(), con.getNombres(), con.getApellidos(), con.getTelefono(), con.getDireccion(), con.getEmail()});
                 ape = true;
             }
@@ -645,8 +645,8 @@ public class interfazAgendaMVC extends javax.swing.JFrame {
     }//GEN-LAST:event_idActionPerformed
 
     private void B_BuscarPorIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_BuscarPorIDActionPerformed
-        ArrayList<CContacto> lista = new ArrayList<>();
-        lista = c.BuscarPorID(id.getText());
+        ArrayList<CContacto> lista6 = new ArrayList<>();
+        lista6 = c.BuscarPorID(id.getText());
 
         modelo.setRowCount(0);
 
@@ -654,7 +654,7 @@ public class interfazAgendaMVC extends javax.swing.JFrame {
             salida.setText("El campo -ID- está vacío. Llene los campos");
         } else {
             boolean ide = false;
-            for (CContacto con : lista) {
+            for (CContacto con : lista6) {
                 modelo.addRow(new Object[]{con.getId(), con.getNombres(), con.getApellidos(), con.getTelefono(), con.getDireccion(), con.getEmail()});
                 ide = true;
             }
@@ -667,12 +667,12 @@ public class interfazAgendaMVC extends javax.swing.JFrame {
     }//GEN-LAST:event_B_BuscarPorIDActionPerformed
 
     private void B_ListarDireccionCalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_ListarDireccionCalleActionPerformed
-        ArrayList<CContacto> lista = new ArrayList<>();
-        lista = c.ListarDireccionCalle();
+        ArrayList<CContacto> lista7 = new ArrayList<>();
+        lista7 = c.ListarDireccionCalle();
 
         modelo.setRowCount(0);
 
-        for (CContacto con : lista) {
+        for (CContacto con : lista7) {
             modelo.addRow(new Object[]{con.getId(), con.getNombres(), con.getApellidos(), con.getTelefono(), con.getDireccion(), con.getEmail()});
             salida.setText("Listado por calle"); // si lo de arriba se hizo, devuelve la salida correcta
         }
@@ -680,74 +680,62 @@ public class interfazAgendaMVC extends javax.swing.JFrame {
     }//GEN-LAST:event_B_ListarDireccionCalleActionPerformed
 
     private void B_ListarDireccionCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_ListarDireccionCarreraActionPerformed
-        ArrayList<CContacto> lista = new ArrayList<>();
-        lista = c.ListarDireccionCarrera();
+        ArrayList<CContacto> lista8 = new ArrayList<>();
+        lista8 = c.ListarDireccionCarrera();
 
         modelo.setRowCount(0);
 
-        for (CContacto con : lista) {
+        for (CContacto con : lista8) {
             modelo.addRow(new Object[]{con.getId(), con.getNombres(), con.getApellidos(), con.getTelefono(), con.getDireccion(), con.getEmail()});
             salida.setText("Listado por carrera"); // si lo de arriba se hizo, devuelve la salida correcta
         }
     }//GEN-LAST:event_B_ListarDireccionCarreraActionPerformed
 
     private void B_ListarPrefijoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_ListarPrefijoActionPerformed
-        ArrayList<CContacto> lista = new ArrayList<>();
-        lista = c.ListarPrefijo(telefono.getText());
+        ArrayList<CContacto> lista9 = new ArrayList<>();
+        lista9 = c.ListarPrefijo(telefono.getText());
 
         modelo.setRowCount(0);
 
-        for (CContacto con : lista) {
+        for (CContacto con : lista9) {
             modelo.addRow(new Object[]{con.getId(), con.getNombres(), con.getApellidos(), con.getTelefono(), con.getDireccion(), con.getEmail()});
             salida.setText("Listado por prefijo: " + telefono.getText()); // si lo de arriba se hizo, devuelve la salida correcta
         }
     }//GEN-LAST:event_B_ListarPrefijoActionPerformed
 
     private void B_ListarAlfabeticamenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_ListarAlfabeticamenteActionPerformed
-        ArrayList<CContacto> lista = new ArrayList<>();
-        lista = c.ListarAlfabeticamente();
+        ArrayList<CContacto> lista10 = new ArrayList<>();
+        lista10 = c.ListarAlfabeticamente();
 
         modelo.setRowCount(0);
 
-        for (CContacto con : lista) {
+        for (CContacto con : lista10) {
             modelo.addRow(new Object[]{con.getId(), con.getNombres(), con.getApellidos(), con.getTelefono(), con.getDireccion(), con.getEmail()});
             salida.setText("Listado organizado alfabeticamente"); // si lo de arriba se hizo, devuelve la salida correcta
         }
     }//GEN-LAST:event_B_ListarAlfabeticamenteActionPerformed
 
     private void B_ListarIDparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_ListarIDparActionPerformed
-        ArrayList<CContacto> lista = new ArrayList<>();
-        lista = c.ListarIDpar();
+        ArrayList<CContacto> lista11 = new ArrayList<>();
+        lista11 = c.ListarIDpar();
 
         modelo.setRowCount(0);
 
-        for (CContacto con : lista) {
+        for (CContacto con : lista11) {
             modelo.addRow(new Object[]{con.getId(), con.getNombres(), con.getApellidos(), con.getTelefono(), con.getDireccion(), con.getEmail()});
             salida.setText("Listado de ID par. "); // si lo de arriba se hizo, devuelve la salida correcta
         }
     }//GEN-LAST:event_B_ListarIDparActionPerformed
 
     private void B_ListarIDimpar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_ListarIDimpar1ActionPerformed
-        Connection con = conectar();
+        ArrayList<CContacto> lista12 = new ArrayList<>();
+        lista12 = c.ListarIDimpar();
+
         modelo.setRowCount(0);
 
-        if (con != null) {
-
-            String query = "SELECT * FROM datos WHERE id %2 != 0";
-
-            try {
-                //preparo la consulta
-                PreparedStatement preparar = con.prepareStatement(query);
-                //ejecuto la consulta luego de prepararla, como es un select devuelve una lista de tipo ResultSet
-                ResultSet resultado = preparar.executeQuery();
-                //hago un ciclo para recorrer la lista y ponerla en la tabla de la interfaz
-                while (resultado.next()) {
-                    modelo.addRow(new Object[]{resultado.getInt("id"), resultado.getString("nombres"), resultado.getString("apellidos"), resultado.getString("telefono"), resultado.getString("direccion"), resultado.getString("email")});
-                }
-                salida.setText("Listado de ID impar. "); // si lo de arriba se hizo, devuelve la salida correcta
-            } catch (SQLException ex) {
-                salida.setText("Error en el sql");
-            }
+        for (CContacto con : lista12) {
+            modelo.addRow(new Object[]{con.getId(), con.getNombres(), con.getApellidos(), con.getTelefono(), con.getDireccion(), con.getEmail()});
+            salida.setText("Listado de ID impar. "); // si lo de arriba se hizo, devuelve la salida correcta
         }
     }//GEN-LAST:event_B_ListarIDimpar1ActionPerformed
 
@@ -756,57 +744,17 @@ public class interfazAgendaMVC extends javax.swing.JFrame {
     }//GEN-LAST:event_CB_CampoDeterminadoActionPerformed
 
     private void B_ListarUnCampoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_ListarUnCampoActionPerformed
-        Connection con = conectar();
-        modelo.setRowCount(0);
+        ArrayList<CContacto> lista13 = new ArrayList<>();
         String opcion = (String) CB_CampoDeterminado.getSelectedItem();
+        lista13 = c.ListarUnCampo(opcion);
 
-        if (con != null) {
+        modelo.setRowCount(0);
 
-            String query = "SELECT " + opcion + " FROM datos ;";
-
-            try {
-
-                //preparo la consulta
-                PreparedStatement preparar = con.prepareStatement(query);
-                //ejecuto la consulta luego de prepararla, como es un select devuelve una lista de tipo ResultSet
-                ResultSet resultado = preparar.executeQuery();
-                //hago un ciclo para recorrer la lista y ponerla en la tabla de la interfaz
-
-                if (opcion.equals("id")) {
-                    while (resultado.next()) {
-                        modelo.addRow(new Object[]{resultado.getInt("id")});
-                    }
-                }
-                if (opcion.equals("nombres")) {
-                    while (resultado.next()) {
-                        modelo.addRow(new Object[]{(""), resultado.getString("nombres")});
-                    }
-                }
-                if (opcion.equals("apellidos")) {
-                    while (resultado.next()) {
-                        modelo.addRow(new Object[]{(""), (""), resultado.getString("apellidos")});
-                    }
-                }
-                if (opcion.equals("telefono")) {
-                    while (resultado.next()) {
-                        modelo.addRow(new Object[]{(""), (""), (""), resultado.getString("telefono")});
-                    }
-                }
-                if (opcion.equals("direccion")) {
-                    while (resultado.next()) {
-                        modelo.addRow(new Object[]{(""), (""), (""), (""), resultado.getString("direccion")});
-                    }
-                }
-                if (opcion.equals("email")) {
-                    while (resultado.next()) {
-                        modelo.addRow(new Object[]{(""), (""), (""), (""), (""), resultado.getString("email")});
-                    }
-                }
-                salida.setText("Listado de: " + opcion); // si lo de arriba se hizo, devuelve la salida correcta
-            } catch (SQLException ex) {
-                salida.setText("Error en el sql");
-            }
+        for (CContacto con : lista13) {
+            modelo.addRow(new Object[]{con.getId(), con.getNombres(), con.getApellidos(), con.getTelefono(), con.getDireccion(), con.getEmail()});
+            salida.setText("Listado de un campo determinado. "); // si lo de arriba se hizo, devuelve la salida correcta
         }
+
     }//GEN-LAST:event_B_ListarUnCampoActionPerformed
 
     public static void main(String args[]) {
@@ -820,16 +768,24 @@ public class interfazAgendaMVC extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(interfazAgendaMVC.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(interfazAgendaMVC.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(interfazAgendaMVC.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(interfazAgendaMVC.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(interfazAgendaMVC.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(interfazAgendaMVC.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(interfazAgendaMVC.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(interfazAgendaMVC.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
