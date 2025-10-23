@@ -445,7 +445,8 @@ public class CConsultas {
 
     public ArrayList<CContacto> ListarUnCampo(Connection con, String opcion) {
         this.con = con;
-        query = "SELECT" + opcion + " FROM datos ;";
+        query = "SELECT " + opcion + " FROM datos ;";
+        // System.out.println(query);
 
         ArrayList<CContacto> lista = new ArrayList<>();
         try {
